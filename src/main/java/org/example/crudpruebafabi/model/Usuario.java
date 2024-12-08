@@ -1,6 +1,8 @@
 package org.example.crudpruebafabi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,8 +29,17 @@ public class Usuario implements UserDetails {
 
     @Column(unique = true)
     private String email;
+
+    @NotBlank(message = "El nombre de usuario no puede estar vacío")
+    @Column(name = "usuario")
     private String usuario;
+
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "activo")
     private boolean activo;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Rol.class, cascade = CascadeType.ALL)

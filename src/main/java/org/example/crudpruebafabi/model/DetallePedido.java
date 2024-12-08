@@ -2,6 +2,8 @@ package org.example.crudpruebafabi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class DetallePedido {
@@ -22,9 +24,11 @@ public class DetallePedido {
     @JoinColumn(name = "id_producto")
     private Producto producto;
 
+    @Min(value = 1, message = "La cantidad debe ser al menos 1")
     @Column(name = "cantidad")
     private int cantidad;
 
+    @DecimalMin(value = "0.0", inclusive = false, message = "El precio unitario debe ser mayor que 0")
     @Column(name = "precio_unitario")
     private double precioUnitario;
 

@@ -16,6 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Pedido {
@@ -32,6 +35,7 @@ public class Pedido {
     @JsonManagedReference
     private List<DetallePedido> detallesPedido = new ArrayList<>();
 
+    @NotNull(message = "La fecha del pedido no puede estar vacía")
     @Column(name = "fecha_pedido")
     @Temporal(TemporalType.DATE)
     private LocalDate fechaPedido;
@@ -39,9 +43,11 @@ public class Pedido {
     @Column(name = "estado_pedido", columnDefinition = "BIT")
     private boolean estadoPedido;
 
+    @Min(value = 0, message = "La disponibilidad no puede ser negativa")
     @Column(name = "subtotal")
     private double subtotal; // Nuevo campo
 
+    @Size(max = 255, message = "Las notas adicionales no pueden tener más de 255 caracteres")
     @Column(name = "notas_adicionales")
     private String notasAdicionales; // Nuevo campo
 

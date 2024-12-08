@@ -1,6 +1,7 @@
 package org.example.crudpruebafabi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 import java.util.List;
@@ -11,18 +12,25 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
 
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres")
     @Column(name = "Nombre_cliente")
     private String nombre;
 
+    @Email(message = "El email debe ser válido")
     @Column(name = "Email_cliente")
     private String email;
 
+    @Size(max = 9, message = "El teléfono no puede tener más de 9 caracteres")
     @Column(name = "Telefono_cliente")
     private String telefono;
 
+    @Size(max = 150, message = "La dirección no puede tener más de 150 caracteres")
     @Column(name = "Direccion_cliente")
     private String direccion;
 
+    @NotNull(message = "La fecha de registro no puede estar vacía")
+    @PastOrPresent(message = "La fecha de registro debe ser en el pasado o presente")
     @Column(name = "FechaRegistro_cliente")
     private Date fechaRegistro;
 

@@ -3,6 +3,7 @@ package org.example.crudpruebafabi.model;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Producto {
@@ -12,18 +13,24 @@ public class Producto {
     @Column(name = "id_producto")
     private Long idProducto;
 
+    @NotNull(message = "El id del catálogo no puede estar vacío")
     @Column(name = "id_catalogo")
     private Long idCatalogo;
 
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
     @Column(name = "nombre")
     private String nombre;
 
+    @Size(max = 255, message = "La descripción no puede tener más de 255 caracteres")
     @Column(name = "descripcion")
     private String descripcion;
 
+    @DecimalMin(value = "0.0", inclusive = false, message = "El precio debe ser mayor que 0")
     @Column(name = "precio")
     private double precio;
 
+    @Min(value = 0, message = "La disponibilidad no puede ser negativa")
     @Column(name = "disponibilidad")
     private int disponibilidad;
 

@@ -1,6 +1,8 @@
 package org.example.crudpruebafabi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Catalogo {
@@ -10,9 +12,12 @@ public class Catalogo {
     @Column(name = "id_catalogo")
     private Long idCatalogo;
 
+    @NotBlank(message = "El nombre del catálogo no puede estar vacío")
+    @Size(max = 100, message = "El nombre del catálogo no puede tener más de 100 caracteres")
     @Column(name = "nombre_catalogo")
     private String nombreCatalogo;
 
+    @Size(max = 255, message = "La descripción del catálogo no puede tener más de 255 caracteres")
     @Column(name = "descripcion_catalogo")
     private String descripcionCatalogo;
 
